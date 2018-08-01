@@ -1,2 +1,2 @@
 "use strict";
-console.log('invoice');
+Object.defineProperty(exports, "__esModule", { value: true });

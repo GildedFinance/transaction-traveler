@@ -1,1 +1,3 @@
-console.log('invoice');
+export interface IInvoice {
+  id: string;
+}
