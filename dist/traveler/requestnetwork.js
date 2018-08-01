@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var RequestNetworkTraveler = /** @class */ (function () {
+var RequestNetworkTraveler = (function () {
     function RequestNetworkTraveler() {
     }
     RequestNetworkTraveler.prototype.convertTransactionTo = function (txn) {

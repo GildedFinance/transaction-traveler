@@ -9,7 +9,7 @@ var Network;
     Network[Network["RequestNetwork"] = 4] = "RequestNetwork";
     // always keep this in the existing order since this is an enum
 })(Network = exports.Network || (exports.Network = {}));
-var Traveler = /** @class */ (function () {
+var Traveler = (function () {
     function Traveler() {
     }
     Traveler.prototype.convertTransactionTo = function (txn) {

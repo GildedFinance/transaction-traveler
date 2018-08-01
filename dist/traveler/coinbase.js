@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var CoinbaseTraveler = /** @class */ (function () {
+var CoinbaseTraveler = (function () {
     function CoinbaseTraveler() {
     }
     CoinbaseTraveler.prototype.convertTransactionTo = function (txn) {
