@@ -5,15 +5,19 @@ export  class TransactionTraveler {
 
   convertTransaction(txn: any, from: Network, to?: Network) {
     let base = txn;
-
+    //Convert to Base Transaction
     if (from !== Network.Base) {
-      const f = this.getTraveler(from);
-      base = f.convertTransactionFrom(txn);
+      const f_traveler = this.getTraveler(from);
+      /**
+       * Compile error: Cannot invoke an expression whose type lacks a call signature.
+       * https://stackoverflow.com/questions/42427393/cannot-invoke-an-expression-whose-type-lacks-a-call-signature
+       */
+      base = f_traveler.convertTransactionFrom(txn);
     }
-
+    //Convert "to" to Base
     if (to) {
-      const t = this.getTraveler(to);
-      return t.convertTransactionTo(base);
+      const t_traveler = this.getTraveler(to);
+      return t_traveler.convertTransactionTo(base);
     }
 
     return base;
@@ -21,15 +25,15 @@ export  class TransactionTraveler {
 
   convertInvoice(invoice: any, from: Network, to?: Network) {
     let base = invoice;
-
+    
     if (from !== Network.Base) {
-      const f = this.getTraveler(from);
-      base = f.convertInvoiceFrom(invoice);
+      const f_traveler = this.getTraveler(from);
+      base = f_traveler.convertInvoiceFrom(invoice);
     }
 
     if (to) {
-      const t = this.getTraveler(to);
-      return t.convertInvoiceTo(base);
+      const t_traveler = this.getTraveler(to);
+      return t_traveler.convertInvoiceTo(base);
     }
 
     return base;

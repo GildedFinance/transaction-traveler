@@ -12,6 +12,7 @@ export interface IQuickBooksInvoice {
 
 export class QuickBooksTraveler implements Traveler {
 
+  //TODO 2
   convertTransactionTo(txn: ITransaction) {
 
   }
