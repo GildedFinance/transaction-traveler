@@ -14,7 +14,8 @@ export  class TransactionTraveler {
        */
       base = f_traveler.convertTransactionFrom(txn);
     }
-    //Convert "to" to Base
+    //Convert our converted from tx to base to "to" type tx
+    // Coinbase -> Base -> Quickbooks
     if (to) {
       const t_traveler = this.getTraveler(to);
       return t_traveler.convertTransactionTo(base);

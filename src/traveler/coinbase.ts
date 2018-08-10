@@ -16,7 +16,7 @@ export enum CoinbaseTxType {
  * if(tx.type == 'buy'){ tx.buy field exists}
  * if(tx.type == 'sell'){tx.sell field exists}
  */
-export interface ICoinbaseTransaction {
+export interface ICoinbaseTransaction extends ITransaction {
   // define the fields in this transaction type
   id: string,
   type: CoinbaseTxType,
@@ -64,11 +64,12 @@ export interface ICoinbaseTransaction {
   
 }
 
-export interface ICoinbaseInvoice {
+export interface ICoinbaseInvoice extends IInvoice{
   // define the fields in this invoice type
 }
 
 export class CoinbaseTraveler implements Traveler {
+  base: any;
 
   //TODO 0
   convertTransactionTo(txn: ITransaction) {
@@ -77,6 +78,10 @@ export class CoinbaseTraveler implements Traveler {
 
   //TODO 1
   convertTransactionFrom(txn: ICoinbaseTransaction) {
+
+    //this converts to our Base Transaction: ITransaction
+    //TODO
+    return this.base;
     
   }
 
@@ -85,7 +90,8 @@ export class CoinbaseTraveler implements Traveler {
   }
 
   convertInvoiceFrom(invoice: ICoinbaseInvoice) {
-
+    //TODO
+    return this.base;
   }
 
 }
