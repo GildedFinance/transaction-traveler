@@ -2,12 +2,7 @@ import { Traveler, Network } from "../lib/shared";
 import { ITransaction } from "../lib/transaction";
 import { IInvoice } from "../lib/invoice";
 
-//TODO incomplete list
-export enum CoinbaseTxType {
-  buy,
-  sell,
-  send
-}
+
 
  //TODO incomplete definition
 /**
@@ -34,19 +29,20 @@ export interface ICoinbaseTransaction {
   description?: string,
   created_at: string,
   updated_at?: string,
-  network: {
-    status: string,
-    hash: string,
-    transaction_fee: {
-      amount: string,
-      currency:string
-    },
-    transaction_amount?: {
-      amount: string,
-      currency:string
-    },
-    confirmations?:number
-  },
+  // network: {
+  //   status: string,
+  //   hash: string,
+  //   transaction_fee: {
+  //     amount: string,
+  //     currency:string
+  //   },
+  //   transaction_amount?: {
+  //     amount: string,
+  //     currency:string
+  //   },
+  //   confirmations?:number
+  // },
+  network:string,
   buy?: {
     id: string,
     resource: string,
@@ -57,11 +53,15 @@ export interface ICoinbaseTransaction {
     resource: string,
     resource_path:string
   }
-  to?: {
+  //to?: {
+  to:{
     resource: string,
     address: string,
     currency:string
-  } 
+  },
+  from: {
+    id: string
+  }
   
 }
 
@@ -73,13 +73,43 @@ export class CoinbaseTraveler implements Traveler {
 
   //TODO 0
   convertTransactionTo(txn: ITransaction) {
-
+    
   }
 
   //TODO 1
-  convertTransactionFrom(txn: ICoinbaseTransaction) {
+  convertTransactionFrom(txn: ICoinbaseTransaction): ITransaction {
+    //var cb_txn: <ICoinbaseTransaction> txn;
 
-    //this converts to our Base Transaction: ITransaction     
+    //this should throw an error if we have a mismatch
+    var cb_txn = <ICoinbaseTransaction>txn;
+    var base_cnv_txn = <ITransaction>{};
+    try {
+      var base_cnv_txn: ITransaction = {
+        id: cb_txn.id,
+        type: cb_txn.type,
+        amount: {
+          amount: cb_txn.amount.amount,
+          currency:cb_txn.amount.currency
+        },
+        created_at: cb_txn.created_at,
+        description: cb_txn.description,
+        from: {
+          id:cb_txn.from.id
+        },
+        native_amount: cb_txn.native_amount,
+        network: cb_txn.network,
+        to: {
+          id:cb_txn.to.resource
+        },
+        updated_at: cb_txn.updated_at
+      }
+    }
+    catch (e) {
+      console.log(e);
+
+    }
+    
+    return base_cnv_txn;
     
   }
 

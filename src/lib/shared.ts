@@ -24,8 +24,8 @@ export interface IAmount {
 }
 
 // @TODO: Should probably use generics for this?
-export type TransactionInterfaces = Travelers.ICoinbaseTransaction | Travelers.IRequestNetworkTransaction;
-export type InvoiceInterfaces = Travelers.ICoinbaseInvoice | Travelers.IRequestNetworkInvoice;
+export type TransactionInterfaces = Travelers.ICoinbaseTransaction | Travelers.IRequestNetworkTransaction | Travelers.IQuickBooksTransaction;
+export type InvoiceInterfaces = Travelers.ICoinbaseInvoice | Travelers.IRequestNetworkInvoice | Travelers.IQuickBooksInvoice;
 
 export abstract class Traveler {
 

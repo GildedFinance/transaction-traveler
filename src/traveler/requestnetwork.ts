@@ -8,16 +8,17 @@ export interface IRequestNetworkTransaction {
 
 export interface IRequestNetworkInvoice {
   // define the fields in this invoice type
+
 }
 
 export class RequestNetworkTraveler implements Traveler {
-  base: any;
+
 
   convertTransactionTo(txn: ITransaction) {
 
   }
 
-  convertTransactionFrom(txn: IRequestNetworkTransaction) {
+  convertTransactionFrom(txn: any) {
 
   }
 
