@@ -11,15 +11,14 @@ export interface IRequestNetworkInvoice {
 }
 
 export class RequestNetworkTraveler implements Traveler {
+  base: any;
 
   convertTransactionTo(txn: ITransaction) {
 
   }
 
-  convertTransactionFrom(txn: IRequestNetworkTransaction) : ITransaction {
-    var thing = <ITransaction>{};
-    //this converts to our Base Transaction: ITransaction     
-    return thing;
+  convertTransactionFrom(txn: IRequestNetworkTransaction) {
+
   }
 
   convertInvoiceTo(invoice: IInvoice) {

@@ -17,10 +17,8 @@ export class QuickBooksTraveler implements Traveler {
 
   }
 
-  convertTransactionFrom(txn: IQuickBooksTransaction) : ITransaction {
-    var thing = <ITransaction>{};
-    //this converts to our Base Transaction: ITransaction     
-    return thing;
+  convertTransactionFrom(txn: IQuickBooksTransaction) {
+
   }
 
   convertInvoiceTo(invoice: IInvoice) {

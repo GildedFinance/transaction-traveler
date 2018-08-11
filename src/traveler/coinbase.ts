@@ -77,10 +77,10 @@ export class CoinbaseTraveler implements Traveler {
   }
 
   //TODO 1
-  convertTransactionFrom(txn: ICoinbaseTransaction) : ITransaction {
-    var thing = <ITransaction>{};
+  convertTransactionFrom(txn: ICoinbaseTransaction) {
+
     //this converts to our Base Transaction: ITransaction     
-    return thing;
+    
   }
 
   convertInvoiceTo(invoice: IInvoice) {

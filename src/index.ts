@@ -1,6 +1,5 @@
 import { Network } from "./lib/shared";
 import * as Travelers from "./traveler";
-import { ITransaction } from "./lib/transaction";
 
 export  class TransactionTraveler {
 
@@ -13,7 +12,7 @@ export  class TransactionTraveler {
        * Compile error: Cannot invoke an expression whose type lacks a call signature.
        * https://stackoverflow.com/questions/42427393/cannot-invoke-an-expression-whose-type-lacks-a-call-signature
        */
-      base = f_traveler.convertTransactionFrom(txn) as ITransaction;
+      base = f_traveler.convertTransactionFrom(txn);
     }
     //Convert our converted from tx to base to "to" type tx
     // Coinbase -> Base -> Quickbooks
