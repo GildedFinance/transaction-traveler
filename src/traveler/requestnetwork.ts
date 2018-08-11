@@ -2,24 +2,24 @@ import { Traveler, Network } from "../lib/shared";
 import { ITransaction } from "../lib/transaction";
 import { IInvoice } from "../lib/invoice";
 
-export interface IRequestNetworkTransaction extends ITransaction{
+export interface IRequestNetworkTransaction {
   // define the fields in this transaction type
 }
 
-export interface IRequestNetworkInvoice extends IInvoice{
+export interface IRequestNetworkInvoice {
   // define the fields in this invoice type
 }
 
 export class RequestNetworkTraveler implements Traveler {
-  base: any;
 
   convertTransactionTo(txn: ITransaction) {
 
   }
 
-  convertTransactionFrom(txn: IRequestNetworkTransaction) {
-    //TODO
-    return this.base;
+  convertTransactionFrom(txn: IRequestNetworkTransaction) : ITransaction {
+    var thing = <ITransaction>{};
+    //this converts to our Base Transaction: ITransaction     
+    return thing;
   }
 
   convertInvoiceTo(invoice: IInvoice) {
@@ -27,8 +27,7 @@ export class RequestNetworkTraveler implements Traveler {
   }
 
   convertInvoiceFrom(invoice: IRequestNetworkInvoice) {
-    //TODO
-    return this.base;
+
   }
 
 }

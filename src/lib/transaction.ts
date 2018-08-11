@@ -2,7 +2,7 @@ import { Network } from "./shared";
 
 export interface ITransaction {
   id: string;
-  type: string | any;
+  type: string;
   amount: {
     amount: number;
     currency: string;
@@ -14,13 +14,13 @@ export interface ITransaction {
   description?: string;
   created_at: string;
   updated_at?: string;
-  network: string | any;
-  from?: {
+  network: string;
+  from: {
     id: string;
   }
-  to?: {
+  to: {
     id: string;
-  } | any
+  }
 
 }
 
