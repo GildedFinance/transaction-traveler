@@ -35,6 +35,9 @@ let exampleTxn = {
     "resource": "user",
     "resource_path": "/v2/users/a6b4c2df-a62c-5d68-822a-dd4e2102e703"
   },
+  "from": {
+    "id":"test_from"
+  },
   "instant_exchange": false,
   "details": {
     "title": "Sent bitcoin",

@@ -1,24 +1,21 @@
-import { Network } from "./lib/shared";
-import { TransactionInterfaces } from "./lib/shared";
+import { Network, Traveler } from "./lib/shared";
 import * as Travelers from "./traveler";
 
 export  class TransactionTraveler {
 
   convertTransaction(txn: any, from: Network, to?: Network) {
     let base = txn;
-    //let txn_interfaced = TransactionInterfaces
     //Convert to Base Transaction
     if (from !== Network.Base) {
+      //const naive_t = this.getTraveler(from);
+      //const f_traveler: Traveler = this.getTraveler(from);
       const f_traveler = this.getTraveler(from);
       /**
        * Compile error: Cannot invoke an expression whose type lacks a call signature.
        * https://stackoverflow.com/questions/42427393/cannot-invoke-an-expression-whose-type-lacks-a-call-signature
        */
-      //TODO
+      
       base = f_traveler.convertTransactionFrom(txn);
-      if (base.id == undefined) {
-        console.log("Failed");
-      }
     }
     //Convert our converted from tx to base to "to" type tx
     // Coinbase -> Base -> Quickbooks
@@ -35,7 +32,7 @@ export  class TransactionTraveler {
     
     if (from !== Network.Base) {
       const f_traveler = this.getTraveler(from);
-      //base = f_traveler.convertInvoiceFrom(invoice);
+      base = f_traveler.convertInvoiceFrom(invoice);
     }
 
     if (to) {
@@ -46,21 +43,12 @@ export  class TransactionTraveler {
     return base;
   }
 
-  getTraveler(network: Network) {
+  getTraveler(network: Network) : Traveler{
     switch (network) {
       case Network.Coinbase: return new Travelers.CoinbaseTraveler();
       case Network.QuickBooks: return new Travelers.QuickBooksTraveler();
-      //case Network.RequestNetwork: return new Travelers.RequestNetworkTraveler();
+      case Network.RequestNetwork: return new Travelers.RequestNetworkTraveler();
       default: throw new Error('Unknown network: ' + network);
-    }
-  }
-
-  getTxInterface(network: Network) {
-    switch (network) {
-      case Network.Coinbase: return new Travelers.CoinbaseTraveler();
-      case Network.QuickBooks: return new Travelers.QuickBooksTraveler();
-      //case Network.RequestNetwork: return new Travelers.RequestNetworkTraveler();
-      default: throw new Error('Unknown Interface: ' + network);
     }
   }
 

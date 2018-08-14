@@ -35,10 +35,10 @@ export class QuickBooksTraveler implements Traveler {
         created_at: txn.created_at,
         from: txn.from.id,
         id: txn.id,
-        native_amount: qb_txn.native_amount,
-        network: qb_txn.network,
-        to: qb_txn.to,
-        type: qb_txn.type
+        native_amount: txn.native_amount,
+        network: txn.network,
+        to: txn.to.id,
+        type: txn.type
       }
     }
     catch (e) {

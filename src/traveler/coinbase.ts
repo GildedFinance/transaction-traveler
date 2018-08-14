@@ -22,7 +22,7 @@ export interface ICoinbaseTransaction {
     amount: number;
     currency: string;
   },
-  native_amount?: {
+  native_amount: {
     amount: number;
     currency: string;
   },
@@ -83,6 +83,7 @@ export class CoinbaseTraveler implements Traveler {
     //this should throw an error if we have a mismatch
     var cb_txn = <ICoinbaseTransaction>txn;
     var base_cnv_txn = <ITransaction>{};
+    
     try {
       var base_cnv_txn: ITransaction = {
         id: cb_txn.id,
@@ -93,13 +94,14 @@ export class CoinbaseTraveler implements Traveler {
         },
         created_at: cb_txn.created_at,
         description: cb_txn.description,
-        from: {
-          id:cb_txn.from.id
-        },
+
         native_amount: cb_txn.native_amount,
         network: cb_txn.network,
         to: {
           id:cb_txn.to.resource
+        },
+        from: {
+          id:cb_txn.from.id
         },
         updated_at: cb_txn.updated_at
       }

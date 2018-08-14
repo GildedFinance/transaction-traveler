@@ -7,7 +7,7 @@ export interface ITransaction {
     amount: number;
     currency: string;
   };
-  native_amount?: {
+  native_amount: {
     amount: number;
     currency: string;
   }
