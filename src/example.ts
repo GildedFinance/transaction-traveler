@@ -1,6 +1,7 @@
 import { TransactionTraveler } from "./"
 import { Network } from "./lib/shared";
-
+import { BuyTxTest } from "../tests/network/coinbase/buy";
+import * as txns from '../../tests/network/coinbase/account/getTransaction-200.json';
 /*********************
  *
  * EXAMPLE USAGE
@@ -8,6 +9,8 @@ import { Network } from "./lib/shared";
  */
 
 let tt = new TransactionTraveler();
+
+let buyTxTest = new BuyTxTest();
 
 let exampleTxn = {
   "id": "57ffb4ae-0c59-5430-bcd3-3f98f797a66c",
@@ -45,6 +48,8 @@ let exampleTxn = {
   }
 };
 
-const toQuickBooks = tt.convertTransaction(exampleTxn, Network.Coinbase, Network.QuickBooks);
+const toQuickBooks = tt.convertTransaction(buyTxTest.tx, Network.Coinbase, Network.QuickBooks);
+const toQuickBooks2 = tt.convertTransaction(txns, Network.Coinbase, Network.QuickBooks);
 
-console.log(toQuickBooks);
+console.log(JSON.stringify(toQuickBooks));
+console.log(JSON.stringify(toQuickBooks2));

@@ -33,11 +33,11 @@ export class QuickBooksTraveler implements Traveler {
       var qb_txn: IQuickBooksTransaction = {
         amount: txn.amount,
         created_at: txn.created_at,
-        from: txn.from.id,
+        from: txn.from.id || '',
         id: txn.id,
-        native_amount: txn.native_amount,
+        native_amount: this.convertITransactionNativeAmount(txn.native_amount),
         network: txn.network,
-        to: txn.to.id,
+        to: txn.to.id || '',
         type: txn.type
       }
     }
@@ -81,4 +81,15 @@ export class QuickBooksTraveler implements Traveler {
 
   }
 
+  /////
+  /////////UTILITY METHODS
+  ////////////////////////////
+
+  // @TODO fetch this data
+  convertITransactionNativeAmount(native_amount: any) {
+    return {
+      amount: 0,
+      currency: 'USD'
+    };
+  }
 }

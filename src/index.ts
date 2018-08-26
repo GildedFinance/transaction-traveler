@@ -4,18 +4,18 @@ import * as Travelers from "./traveler";
 export  class TransactionTraveler {
 
   convertTransaction(txn: any, from: Network, to?: Network) {
+    
+    if (txn.data !== undefined) {
+      txn = txn.data;
+    }
+
     let base = txn;
     //Convert to Base Transaction
     if (from !== Network.Base) {
-      //const naive_t = this.getTraveler(from);
-      //const f_traveler: Traveler = this.getTraveler(from);
+
       const f_traveler = this.getTraveler(from);
-      /**
-       * Compile error: Cannot invoke an expression whose type lacks a call signature.
-       * https://stackoverflow.com/questions/42427393/cannot-invoke-an-expression-whose-type-lacks-a-call-signature
-       */
-      
       base = f_traveler.convertTransactionFrom(txn);
+      
     }
     //Convert our converted from tx to base to "to" type tx
     // Coinbase -> Base -> Quickbooks
