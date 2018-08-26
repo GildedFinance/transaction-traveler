@@ -151,6 +151,7 @@ export class CoinbaseTraveler implements Traveler {
     }
     catch (e) {
       console.log(e);
+      throw new Error("Unable to create ITransaction from CoinbaseTransaction");
 
     }
     

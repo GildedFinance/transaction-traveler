@@ -1,7 +1,8 @@
 import { TransactionTraveler } from "./"
 import { Network } from "./lib/shared";
 import { BuyTxTest } from "../tests/network/coinbase/buy";
-import * as txns from '../../tests/network/coinbase/account/getTransaction-200.json';
+import * as txn from '../../tests/network/coinbase/account/getTransaction-200.json';
+import * as txns from '../../tests/network/coinbase/account/transactions-200.json';
 /*********************
  *
  * EXAMPLE USAGE
@@ -48,7 +49,23 @@ let exampleTxn = {
   }
 };
 
+var resArr = new Array<Promise<any>>();
+
+if (txns.default.data !== undefined) {
+  for (const txn in txns.default.data) {
+    let tx = txns.default.data[txn];
+    resArr.push(tt.convertTransaction(tx, Network.Coinbase, Network.QuickBooks));
+    //console.log(JSON.stringify(val));
+  }
+}
+
+resArr.forEach(res => {
+      console.log(JSON.stringify(res));
+  })
+
+
 const toQuickBooks = tt.convertTransaction(buyTxTest.tx, Network.Coinbase, Network.QuickBooks);
+
 const toQuickBooks2 = tt.convertTransaction(txns, Network.Coinbase, Network.QuickBooks);
 
 console.log(JSON.stringify(toQuickBooks));
