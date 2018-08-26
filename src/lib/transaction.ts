@@ -14,7 +14,20 @@ export interface ITransaction {
   description?: string;
   created_at: string;
   updated_at?: string;
-  network: string;
+  network: {
+    status?: string,
+    hash?: string,
+    name?: string,
+    transaction_fee?: {
+      amount: number,
+      currency: string
+    } | undefined,
+    transaction_amount?: {
+      amount: string,
+      currency: string
+    },
+    confirmations?: number
+  };
   from: {
     id: string;
   }
@@ -22,6 +35,9 @@ export interface ITransaction {
     id: string,
     email?: string,
     address?:string
+  },
+  source: {
+    name: string
   }
 
 }

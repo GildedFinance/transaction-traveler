@@ -1,6 +1,8 @@
 import { Traveler, Network } from "../lib/shared";
 import { ITransaction } from "../lib/transaction";
 import { IInvoice } from "../lib/invoice";
+const this_network = 'Coinbase'
+const debug = true;
 
 //https://developers.coinbase.com/api/v2#transfer-money-between-accounts
 export enum CoinbaseTxType {
@@ -123,9 +125,10 @@ export class CoinbaseTraveler implements Traveler {
     var base_cnv_txn = <ITransaction>{};
 
     // @TODO: What is the best way to handle this?
-    //let cb_network = cb_txn.network;
-    //let network = cb_network!.name || 'Coinbase';
-    let network = 'Coinbase';
+    let cb_network = cb_txn.network;
+    var network = this.buildNetwork(cb_network);
+
+    //let network = 'Coinbase';
 
     let cb_to = cb_txn.to;
     let to = this.convertCoinbaseToField(cb_to);
@@ -143,10 +146,13 @@ export class CoinbaseTraveler implements Traveler {
         description: cb_txn.description,
 
         native_amount: cb_txn.native_amount,
-        network: network,
+        network: network || { name: this_network },
         to: to,
         from: from,
-        updated_at: cb_txn.updated_at
+        updated_at: cb_txn.updated_at,
+        source: { 
+          name: 'this_network'
+        }
       }
     }
     catch (e) {
@@ -154,7 +160,7 @@ export class CoinbaseTraveler implements Traveler {
       throw new Error("Unable to create ITransaction from CoinbaseTransaction");
 
     }
-    
+    if(debug){console.log(JSON.stringify(base_cnv_txn))}
     return base_cnv_txn;
     
   }
@@ -207,6 +213,17 @@ export class CoinbaseTraveler implements Traveler {
       }
     }
     return from;
+  }
+
+  buildNetwork(incoming_network: any) {
+    if (incoming_network === undefined) {
+      return {
+        name: 'Coinbase'
+      }
+    }
+    else {
+      return incoming_network;
+    }
   }
 
 }

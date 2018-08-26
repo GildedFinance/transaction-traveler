@@ -36,7 +36,8 @@ export class QuickBooksTraveler implements Traveler {
         from: txn.from.id || '',
         id: txn.id,
         native_amount: this.convertITransactionNativeAmount(txn.native_amount),
-        network: txn.network,
+        // @TODO what if we cannot detect network, should we continue?
+        network: txn.network.name || txn.source.name || 'ERROR',
         to: txn.to.id || '',
         type: txn.type
       }
@@ -59,11 +60,14 @@ export class QuickBooksTraveler implements Traveler {
           id: qb_txn.from,
         },
         native_amount: qb_txn.native_amount,
-        network: qb_txn.network,
+        network: { name: qb_txn.network },
         to: {
           id: qb_txn.to,
         },
-        type: qb_txn.type
+        type: qb_txn.type,
+        source: {
+          name: qb_txn.network
+        }
       }
       
     }
@@ -92,4 +96,16 @@ export class QuickBooksTraveler implements Traveler {
       currency: 'USD'
     };
   }
+
+  convertNetwork(incoming_network: any) {
+    if (incoming_network === undefined) {
+      throw Error("Undefined network type!");
+    }
+    else {
+      if (incoming_network.name !== undefined) {
+        return incoming_network.name;
+      }
+    }
+  }
+ 
 }
