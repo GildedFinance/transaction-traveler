@@ -1,11 +1,11 @@
+//Example Traveler
 import { Traveler, Network } from "../lib/shared";
 import { ITransaction } from "../lib/transaction";
 import { IInvoice } from "../lib/invoice";
-const this_network = 'Coinbase'
+const this_network = 'Example'
 const debug = true;
 
-//https://developers.coinbase.com/api/v2#transfer-money-between-accounts
-export enum CoinbaseTxType {
+export enum ExTravelerTxType {
   send, 
   request,
   transfer,
@@ -18,21 +18,11 @@ export enum CoinbaseTxType {
   vault_withdrawal
 }
 
-
- //TODO incomplete definition
-/**
- * Notes
- * if(tx.type == 'send'){ tx.to field exists}
- * if(tx.type == 'buy'){ tx.buy field exists}
- * if(tx.type == 'sell'){tx.sell field exists}
- */
-export interface ICoinbaseTransaction {
-  // define the fields in this transaction type
+export interface IExTravelerTransaction {
   id: string,
   type: string,
   status: string,
   amount: {
-    // @TODO: Invstigate precision of `number`
     amount: number;
     currency: string;
   },
@@ -105,11 +95,11 @@ export interface ICoinbaseTransaction {
   
 }
 
-export interface ICoinbaseInvoice {
+export interface IExTravelerInvoice {
   // define the fields in this invoice type
 }
 
-export class CoinbaseTraveler implements Traveler {
+export class ExTraveler implements Traveler {
 
   //TODO 0
   convertTransactionTo(txn: ITransaction) {
@@ -117,24 +107,23 @@ export class CoinbaseTraveler implements Traveler {
   }
 
   //TODO 1
-  convertTransactionFrom(txn: ICoinbaseTransaction): ITransaction {
-    //var cb_txn: <ICoinbaseTransaction> txn;
-
-    //
-    let cb_txn = <ICoinbaseTransaction>txn;
+  convertTransactionFrom(txn: IExTravelerTransaction): ITransaction {
+    
+    let ex_txn = <IExTravelerTransaction>txn;
     var base_cnv_txn = <ITransaction>{};
 
     // @TODO: What is the best way to handle this?
-    let cb_network = cb_txn.network;
-    var network = this.buildNetwork(cb_network);
+    let ex_network = ex_txn.network;
+    var network = this.buildNetwork(ex_network);
 
     //let network = 'Coinbase';
 
-    let cb_to = cb_txn.to;
-    let to = this.convertCoinbaseToField(cb_to);
-    let cb_from = cb_txn.from;
-    let from = this.convertCoinbaseFromField(cb_from);
-    try {
+   /*
+   Capture and handle custom fields
+   */
+    
+    /* Convert to ITransaction */
+    /*try {
       var base_cnv_txn: ITransaction = {
         id: cb_txn.id,
         type: cb_txn.type,
@@ -151,7 +140,7 @@ export class CoinbaseTraveler implements Traveler {
         from: from,
         updated_at: cb_txn.updated_at,
         source: { 
-          name: 'Coinbase'
+          name: 'this_network'
         }
       }
     }
@@ -160,7 +149,8 @@ export class CoinbaseTraveler implements Traveler {
       throw new Error("Unable to create ITransaction from CoinbaseTransaction");
 
     }
-    if(debug){console.log(JSON.stringify(base_cnv_txn))}
+    */
+    //if(debug){console.log(JSON.stringify(base_cnv_txn))}
     return base_cnv_txn;
     
   }
@@ -169,7 +159,7 @@ export class CoinbaseTraveler implements Traveler {
 
   }
 
-  convertInvoiceFrom(invoice: ICoinbaseInvoice) {
+  convertInvoiceFrom(invoice: IExTravelerInvoice) {
 
   }
 
@@ -177,43 +167,6 @@ export class CoinbaseTraveler implements Traveler {
   /////////UTILITY METHODS
   ////////////////////////////
 
-
-  //convert coinbase to field to ITransaction
-  convertCoinbaseToField(cb_to_field: any) {
-    let to;
-    if (cb_to_field !== undefined &&
-      (cb_to_field.id !== undefined || cb_to_field.email !== undefined)) {
-      // @TODO to interface
-      to = {
-        id: cb_to_field.id,
-        email: cb_to_field.email,
-        address : cb_to_field.address
-        }
-    }
-    else {
-      // @TODO better mechanism here
-      to = {
-        id: ''
-      }
-    }
-    return to;
-  }
-
-  convertCoinbaseFromField(cb_from_field: any) {
-    let from;
-    if (cb_from_field !== undefined && cb_from_field.id) {
-      from = { 
-        id: cb_from_field.id
-      }
-    }
-    else {
-      // @TODO better mechanism here
-      from = {
-        id: ''
-      }
-    }
-    return from;
-  }
 
   buildNetwork(incoming_network: any) {
     if (incoming_network === undefined) {

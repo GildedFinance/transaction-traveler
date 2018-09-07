@@ -48,6 +48,7 @@ export  class TransactionTraveler {
       case Network.Coinbase: return new Travelers.CoinbaseTraveler();
       case Network.QuickBooks: return new Travelers.QuickBooksTraveler();
       case Network.RequestNetwork: return new Travelers.RequestNetworkTraveler();
+      case Network.Etherscan: return new Travelers.ExTraveler();
       default: throw new Error('Unknown network: ' + network);
     }
   }

@@ -2,7 +2,12 @@ import { TransactionTraveler } from "./"
 import { Network } from "./lib/shared";
 import { BuyTxTest } from "../tests/network/coinbase/buy";
 import * as txn from '../../tests/network/coinbase/account/getTransaction-200.json';
-import * as txns from '../../tests/network/coinbase/account/transactions-200.json';
+//import * as txns from '../../tests/network/coinbase/account/transactions-200.json';
+import * as txns from '/home/ken/Documents/Gilded/Coinbase_flow/3-list_account_transactions-eth.json' 
+import { EtherApi } from './utils/providers/etherscan/api';
+const etherApi = EtherApi;
+const test_coinbase = false;
+const test_etherscan = true;
 /*********************
  *
  * EXAMPLE USAGE
@@ -51,22 +56,45 @@ let exampleTxn = {
 
 var resArr = new Array<Promise<any>>();
 
-if (txns.default.data !== undefined) {
-  for (const txn in txns.default.data) {
-    let tx = txns.default.data[txn];
-    resArr.push(tt.convertTransaction(tx, Network.Coinbase, Network.QuickBooks));
-    //console.log(JSON.stringify(val));
+if (test_coinbase) {
+  if (txns.data !== undefined) {
+    for (let txn in txns.data) {
+      let tx = txns.data[txn];
+      resArr.push(tt.convertTransaction(tx, Network.Coinbase, Network.QuickBooks));
+      //console.log(JSON.stringify(val));
+    }
   }
+  
+  resArr.forEach(res => {
+        console.log(JSON.stringify(res));
+    })
 }
 
-resArr.forEach(res => {
-      console.log(JSON.stringify(res));
-  })
+const txArr = new Array<Promise<any>>();
 
 
-const toQuickBooks = tt.convertTransaction(buyTxTest.tx, Network.Coinbase, Network.QuickBooks);
+if (test_etherscan) {
+  const test_addr = '0xA7a7899d944fE658c4B0a1803BAB2F490bd3849e'
+  const brave_meta_addr_kovan = '0xd0251bfCBaDaA605E1057616c1530130CBc850F9'
+  EtherApi.prototype.getTransactions(brave_meta_addr_kovan)
+    .then(txlist => {
+      //console.log(JSON.stringify(txlist));
+      const txResults = txlist.result;
+      for (let txn in txResults) {
+        txArr.push(tt.convertTransaction(txResults[txn],Network.Etherscan, Network.QuickBooks))
+      }
+      txArr.forEach(res => {
+        console.log(JSON.stringify(res));
+      })
+    });
+  
 
-const toQuickBooks2 = tt.convertTransaction(txns, Network.Coinbase, Network.QuickBooks);
+}
 
-console.log(JSON.stringify(toQuickBooks));
-console.log(JSON.stringify(toQuickBooks2));
+
+//const toQuickBooks = tt.convertTransaction(buyTxTest.tx, Network.Coinbase, Network.QuickBooks);
+
+//const toQuickBooks2 = tt.convertTransaction(txns, Network.Coinbase, Network.QuickBooks);
+
+//console.log(JSON.stringify(toQuickBooks));
+//console.log(JSON.stringify(toQuickBooks2));
