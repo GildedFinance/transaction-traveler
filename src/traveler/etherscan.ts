@@ -74,24 +74,28 @@ export class EtherscanTraveler implements Traveler {
         type: 'Standard',
         amount: {
           amount: es_txn.value,
-          currency: 'Wei'
+          currency: 'ETH',
+          denomination: 'Wei'
         },
         created_at: es_txn.timeStamp,
         description: '',
         native_amount: {
           amount: es_txn.value,
-          currency: 'Wei'
+          currency: 'ETH',
+          denomination: 'Wei'
         },
         network: {
           status: '??',
           hash: es_txn.hash,
           transaction_fee: {
             amount: es_txn.gasUsed,
-            currency: 'Wei'
+            currency: 'ETH',
+            denomination:'Wei'
           },
           transaction_amount: {
             amount: es_txn.value.toString(),
-            currency: 'Wei'
+            currency: 'ETH',
+            denomination:'Wei'
           },
           confirmations: es_txn.confirmations,
           blockHeight: es_txn.blockNumber

@@ -134,18 +134,21 @@ export class CoinbaseTraveler implements Traveler {
     let to = this.convertCoinbaseToField(cb_to);
     let cb_from = cb_txn.from;
     let from = this.convertCoinbaseFromField(cb_from);
+    let native_amount: any = cb_txn.native_amount;
+    native_amount.denomination  = 'Wei';
     try {
       var base_cnv_txn: ITransaction = {
         id: cb_txn.id,
         type: cb_txn.type,
         amount: {
           amount: cb_txn.amount.amount,
-          currency:cb_txn.amount.currency
+          currency: cb_txn.amount.currency,
+          denomination:'?'
         },
         created_at: cb_txn.created_at,
         description: cb_txn.description,
 
-        native_amount: cb_txn.native_amount,
+        native_amount: native_amount,
         network: network || { name: this_network },
         to: to,
         from: from,

@@ -6,10 +6,12 @@ export interface ITransaction {
   amount: {
     amount: number;
     currency: string;
+    denomination: string
   };
   native_amount?: {
     amount: number;
     currency: string;
+    denomination: string
   }
   description?: string;
   created_at: string;
@@ -20,11 +22,13 @@ export interface ITransaction {
     name?: string,
     transaction_fee?: {
       amount: number,
-      currency: string
+      currency: string,
+      denomination: string
     } | undefined,
     transaction_amount?: {
       amount: string,
-      currency: string
+      currency: string,
+      denomination: string
     },
     confirmations?: number,
     blockHeight?: number

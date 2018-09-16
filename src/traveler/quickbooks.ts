@@ -9,11 +9,13 @@ export interface IQuickBooksTransaction {
   from: string,
   amount: {
     amount: number,
-    currency: string
+    currency: string,
+    denomination: string
   },
   native_amount: {
     amount: number,
-    currency:string
+    currency: string,
+    denomination: string
   },
   created_at: string,
   network: string,
@@ -93,7 +95,8 @@ export class QuickBooksTraveler implements Traveler {
   convertITransactionNativeAmount(native_amount: any) {
     return {
       amount: 0,
-      currency: 'USD'
+      currency: 'USD',
+      denomination:'USD'
     };
   }
 
