@@ -71,6 +71,7 @@ export class EtherscanTraveler implements Traveler {
     try {
       var base_cnv_txn: ITransaction = {
         id: es_txn.hash,
+        // @TODO
         type: 'Standard',
         amount: {
           amount: es_txn.value,
@@ -85,6 +86,7 @@ export class EtherscanTraveler implements Traveler {
           denomination: 'Wei'
         },
         network: {
+          // @TODO
           status: '??',
           hash: es_txn.hash,
           transaction_fee: {
