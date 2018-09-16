@@ -26,7 +26,8 @@ export interface ITransaction {
       amount: string,
       currency: string
     },
-    confirmations?: number
+    confirmations?: number,
+    blockHeight?: number
   };
   from: {
     id: string;

@@ -14,14 +14,28 @@ export  class TransactionTraveler {
     if (from !== Network.Base) {
 
       const f_traveler = this.getTraveler(from);
-      base = f_traveler.convertTransactionFrom(txn);
+
+      try {
+        base = f_traveler.convertTransactionFrom(txn);
+      }
+      catch (e) {
+        console.error("Unable to convert to base tx");
+        throw e;
+      }
       
     }
     //Convert our converted from tx to base to "to" type tx
     // Coinbase -> Base -> Quickbooks
     if (to) {
       const t_traveler = this.getTraveler(to);
-      return t_traveler.convertTransactionTo(base);
+
+      try {
+        return t_traveler.convertTransactionTo(base);
+      }
+      catch (e) {
+        console.error("Unable from base tx to new tx format");
+        throw e;
+      }
     }
 
     return base;
@@ -48,7 +62,7 @@ export  class TransactionTraveler {
       case Network.Coinbase: return new Travelers.CoinbaseTraveler();
       case Network.QuickBooks: return new Travelers.QuickBooksTraveler();
       case Network.RequestNetwork: return new Travelers.RequestNetworkTraveler();
-      case Network.Etherscan: return new Travelers.ExTraveler();
+      case Network.Etherscan: return new Travelers.EtherscanTraveler();
       default: throw new Error('Unknown network: ' + network);
     }
   }

@@ -5,7 +5,7 @@ import { IInvoice } from "../lib/invoice";
 const this_network = 'etherscan'
 const debug = true;
 
-export enum ExTravelerTxType {
+export enum EtherscanTxType {
   send, 
   request,
   transfer,
@@ -18,7 +18,7 @@ export enum ExTravelerTxType {
   vault_withdrawal
 }
 
-export interface IExTravelerTransaction {
+export interface IEtherscanTransaction {
   blockHash: string,
   blockNumber: number,
   confirmations: number,
@@ -39,11 +39,11 @@ export interface IExTravelerTransaction {
   value: number
 }
 
-export interface IExTravelerInvoice {
+export interface IEtherscanInvoice {
   // define the fields in this invoice type
 }
 
-export class ExTraveler implements Traveler {
+export class EtherscanTraveler implements Traveler {
 
   //TODO 0
   convertTransactionTo(txn: ITransaction) {
@@ -51,9 +51,9 @@ export class ExTraveler implements Traveler {
   }
 
   //TODO 1
-  convertTransactionFrom(txn: IExTravelerTransaction): ITransaction {
+  convertTransactionFrom(txn: IEtherscanTransaction): ITransaction {
     
-    let ex_txn = <IExTravelerTransaction>txn;
+    let es_txn = <IEtherscanTransaction>txn;
     var base_cnv_txn = <ITransaction>{};
 
     // @TODO: What is the best way to handle this?
@@ -62,38 +62,39 @@ export class ExTraveler implements Traveler {
    /*
    Capture and handle custom fields
    */
-    let ex_to = ex_txn.to;
-    let to = this.convertToField(ex_to);
-    let ex_from = ex_txn.from;
-    let from = this.convertFromField(ex_from);
+    let es_to = es_txn.to;
+    let to = this.convertToField(es_to);
+    let es_from = es_txn.from;
+    let from = this.convertFromField(es_from);
     
     /* Convert to ITransaction */
     try {
       var base_cnv_txn: ITransaction = {
-        id: ex_txn.hash,
+        id: es_txn.hash,
         type: 'Standard',
         amount: {
-          amount: ex_txn.value,
-          currency: 'ETH'
+          amount: es_txn.value,
+          currency: 'Wei'
         },
-        created_at: ex_txn.timeStamp,
+        created_at: es_txn.timeStamp,
         description: '',
         native_amount: {
-          amount: ex_txn.value,
-          currency: 'ETH'
+          amount: es_txn.value,
+          currency: 'Wei'
         },
         network: {
           status: '??',
-          hash: ex_txn.hash,
+          hash: es_txn.hash,
           transaction_fee: {
-            amount: ex_txn.gasUsed,
-            currency: 'ETH'
+            amount: es_txn.gasUsed,
+            currency: 'Wei'
           },
           transaction_amount: {
-            amount: ex_txn.value.toString(),
-            currency: 'ETH'
+            amount: es_txn.value.toString(),
+            currency: 'Wei'
           },
-          confirmations:ex_txn.confirmations
+          confirmations: es_txn.confirmations,
+          blockHeight: es_txn.blockNumber
         },
         to: {
           id: to
@@ -112,7 +113,6 @@ export class ExTraveler implements Traveler {
 
     }
     
-    //if(debug){console.log(JSON.stringify(base_cnv_txn))}
     return base_cnv_txn;
     
   }
@@ -121,7 +121,8 @@ export class ExTraveler implements Traveler {
 
   }
 
-  convertInvoiceFrom(invoice: IExTravelerInvoice) {
+  convertInvoiceFrom(invoice: IEtherscanInvoice
+  ) {
 
   }
 
@@ -146,7 +147,7 @@ export class ExTraveler implements Traveler {
       return ex_to_field;
     }
     else {
-      console.log("etherscan tx has no to filed");
+      console.log("etherscan tx has no to field");
       return 'unknown';
     }
     
@@ -157,7 +158,7 @@ export class ExTraveler implements Traveler {
       return ex_from_field;
     }
     else {
-      console.log("etherscan tx has no from filed");
+      console.log("etherscan tx has no from field");
       return 'unknown';
     }
   }
