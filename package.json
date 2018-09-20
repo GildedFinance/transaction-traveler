@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "requestnetwork-data-format": "^0.1.2",
     "tslint-config-airbnb": "^5.9.2"
   }
 }
