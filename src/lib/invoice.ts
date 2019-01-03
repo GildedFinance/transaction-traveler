@@ -1,63 +1,50 @@
 export interface IInvoice {
-  creationDate: Date;
-  invoiceNumber: string;
-  purchaseOrderId?: string;
-  note?: string;
-  terms?: string;
-  sellerInfo?: {
-    email?: string;
-    firstName?: string;
-    lastName?: string;
-    businessName?: string;
-    phone?: string;
-    address?: {
-      "street-address": string;
-      "extended-address"?: string;
-      "post-office-box"?: string;
-      "locality": string;
-      "region": string;
-      "postal-code": string;
-      "country-name": string;
-    };
-    taxRegistration?: string;
-    companyRegistration?: string;
-    miscellaneous?: {};
-  };
-  buyerInfo?: {
-    email?: string;
-    firstName?: string;
-    lastName?: string;
-    businessName?: string;
-    phone?: string;
-    address?: {
-      "street-address": string;
-      "extended-address"?: string;
-      "post-office-box"?: string;
-      "locality": string;
-      "region": string;
-      "postal-code": string;
-      "country-name": string;
-    };
-    taxRegistration?: string;
-    companyRegistration?: string;
-    miscellaneous?: {};
-  };
-  invoiceItems: {
-    name: string;
-    reference?: string;
-    quantity: number;
-    unitPrice: number;
-    discount?: number;
-    taxPercent: number;
-    currency: string;
-    deliveryDate?: Date;
-    deliveryPeriod?: string;
-  }[];
-  paymentTerms?: {
-    dueDate?: Date;
-    lateFeesPercent?: number;
-    lateFeesFix?: number;
-    miscellaneous?: {}
-  };
-  miscellaneous?: {};
+  ref?: string;
+  invoice_number: number;
+  user_id: string;
+  client_id: string; // assigned from firebase
+  title: string;
+  items: InvoiceItem[];
+  terms: string;
+  total_amount: number;
+  discount: number;
+  currency: string;
+  fiat_currency: string;
+  receive_currency: string;
+  notes: string;
+  status: string;
+
+  // date
+  created_at: any;
+  updated_at: any;
+  deleted_at?: any;
+  date_due: any; // timestamp
+  date_send: any; // timestamp
+  date_paid: any; // timestamp
+
+  // transactions info
+  transaction_id?: any;
+  transaction_network?: string;
+  transaction_network_id?: number;
+  transaction_data?: any;
+
+  invoice_method: string; // address | requestnetwork
+  payment_type?: string; // request | send
+
+  exchange_currency?: string;
+  exchange_value?: number;
+  exchange_rate?: number;
+  exchange_date?: any;
+
+  requestId?: string;
+  creator?: string;
+  payer?: string;
+}
+
+export interface InvoiceItem {
+  id?: number;
+  description: string;
+  quantity: number;
+  amount: number;
+  unit_price: number;
 }
