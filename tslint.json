@@ -5,7 +5,12 @@
     ],
     "jsRules": {},
     "rules": {
-        "quotemark": [true, "single", "jsx-double"]
+        "object-literal-sort-keys": false,
+        "member-access": [true, "no-public"],
+        "no-empty": false,
+        "no-empty-interface": false,
+        "quotemark": [true, "single", "jsx-double"],
+        "trailing-comma": [false, {"multiline": "always", "singleline": "never"}]
     },
     "rulesDirectory": []
 }

@@ -1,8 +1,8 @@
-import { Network } from "./shared";
+import { Network } from './shared';
 
 export interface ITransaction {
   id: string;
-  type: string;
+  type: TransactionType;
   amount: {
     amount: number;
     currency: string;

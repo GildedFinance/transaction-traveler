@@ -1,6 +1,6 @@
-import { Traveler, Network } from "../lib/shared";
-import { ITransaction } from "../lib/transaction";
-import { IInvoice } from "../lib/invoice";
+import { IInvoice } from '../lib/invoice';
+import { Network, Traveler } from '../lib/shared';
+import { ITransaction } from '../lib/transaction';
 
 export interface IRequestNetworkTransaction {
   // define the fields in this transaction type
@@ -12,20 +12,12 @@ export interface IRequestNetworkInvoice {
 
 export class RequestNetworkTraveler implements Traveler {
 
-  convertTransactionTo(txn: ITransaction) {
+  convertTransactionTo(txn: ITransaction) {}
 
-  }
+  convertTransactionFrom(txn: IRequestNetworkTransaction) {}
 
-  convertTransactionFrom(txn: IRequestNetworkTransaction) {
+  convertInvoiceTo(invoice: IInvoice) {}
 
-  }
-
-  convertInvoiceTo(invoice: IInvoice) {
-
-  }
-
-  convertInvoiceFrom(invoice: IRequestNetworkInvoice) {
-
-  }
+  convertInvoiceFrom(invoice: IRequestNetworkInvoice) {}
 
 }
