@@ -7,10 +7,12 @@
     "rules": {
         "object-literal-sort-keys": false,
         "member-access": [true, "no-public"],
+        "no-console": false,
         "no-empty": false,
         "no-empty-interface": false,
         "quotemark": [true, "single", "jsx-double"],
-        "trailing-comma": [false, {"multiline": "always", "singleline": "never"}]
+        "trailing-comma": [false, {"multiline": "always", "singleline": "never"}],
+        "variable-name": false
     },
     "rulesDirectory": []
 }
