@@ -2,8 +2,7 @@ import { IInvoice } from '../lib/invoice';
 import { Network, Traveler } from '../lib/shared';
 import { ITransaction } from '../lib/transaction';
 
-// import RequestNetworkDataFormat from "requestnetwork-data-format";
-// disabled until it supports typescript definitions
+declare var RequestNetworkDataFormat: any;
 
 export interface IRequestNetworkTransaction {
   // not used by Request Network
@@ -56,7 +55,7 @@ export interface IRequestNetworkInvoice {
   };
   invoiceNumber: string;
   creationDate: string;
-  invoiceItems: [];
+  invoiceItems: Array<any>;
   // optional
   purchaseOrderId?: string;
   note?: string;
@@ -67,7 +66,11 @@ export interface IRequestNetworkInvoice {
   miscellaneous?: any;
 }
 
-export class RequestNetworkTraveler implements Traveler {
+export class RequestNetworkTraveler implements Traveler { 
+  
+  validateRequestNetworkData(dataObject: any) {
+    return RequestNetworkDataFormat.validate(dataObject);
+  }
 
   convertTransactionTo(txn: ITransaction) {
     return txn;
@@ -81,7 +84,7 @@ export class RequestNetworkTraveler implements Traveler {
     return invoice;
   }
 
-  convertInvoiceFrom(invoice: IRequestNetworkInvoice) {
+  convertInvoiceFrom<IRequestNetworkInvoice>(invoice: IRequestNetworkInvoice) {
     return invoice;
   }
 

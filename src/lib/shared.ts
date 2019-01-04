@@ -37,12 +37,12 @@ export abstract class Traveler {
 
   }
 
-  convertInvoiceTo(invoice: IInvoice) {
-
+  convertInvoiceTo<IInvoice>(invoice: IInvoice) {
+    return invoice;
   }
 
-  convertInvoiceFrom(invoice: InvoiceInterfaces) {
-
+  convertInvoiceFrom<T>(invoice: T) {
+    return invoice;
   }
 
 }
