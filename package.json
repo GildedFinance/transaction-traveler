@@ -1,6 +1,13 @@
 {
+  "name": "transaction-traveler",
+  "version": "1.0.0",
+  "license": "MIT",
   "dependencies": {
     "requestnetwork-data-format": "^0.1.4",
     "tslint-config-airbnb": "^5.9.2"
+  },
+  "author": {
+    "name": "Gilded Development",
+    "url": "http://gilded.finance"
   }
 }

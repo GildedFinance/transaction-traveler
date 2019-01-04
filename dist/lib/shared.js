@@ -17,6 +17,7 @@ var Traveler = /** @class */ (function () {
     Traveler.prototype.convertTransactionFrom = function (txn) {
     };
     Traveler.prototype.convertInvoiceTo = function (invoice) {
+        return invoice;
     };
     Traveler.prototype.convertInvoiceFrom = function (invoice) {
         return invoice;
