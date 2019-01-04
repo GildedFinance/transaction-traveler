@@ -80,7 +80,7 @@ export class RequestNetworkTraveler implements Traveler {
     return txn;
   }
 
-  convertInvoiceTo(invoice: IInvoice) {
+  convertInvoiceTo<IInvoice>(invoice: IInvoice) {
     return invoice;
   }
 
