@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var QuickBooksTraveler = (function () {
+var QuickBooksTraveler = /** @class */ (function () {
     function QuickBooksTraveler() {
     }
     QuickBooksTraveler.prototype.convertTransactionTo = function (txn) {
@@ -8,8 +8,10 @@ var QuickBooksTraveler = (function () {
     QuickBooksTraveler.prototype.convertTransactionFrom = function (txn) {
     };
     QuickBooksTraveler.prototype.convertInvoiceTo = function (invoice) {
+        return invoice;
     };
     QuickBooksTraveler.prototype.convertInvoiceFrom = function (invoice) {
+        return invoice;
     };
     return QuickBooksTraveler;
 }());
