@@ -8,10 +8,10 @@ var CoinbaseTraveler = /** @class */ (function () {
     CoinbaseTraveler.prototype.convertTransactionFrom = function (txn) {
     };
     CoinbaseTraveler.prototype.convertInvoiceTo = function (invoice) {
-        return invoice;
+        return {};
     };
-    CoinbaseTraveler.prototype.convertInvoiceFrom = function (invoice) {
-        return invoice;
+    CoinbaseTraveler.prototype.convertInvoiceFrom = function (coinbaseInvoice) {
+        return {};
     };
     return CoinbaseTraveler;
 }());

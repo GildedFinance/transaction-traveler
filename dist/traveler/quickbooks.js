@@ -8,10 +8,10 @@ var QuickBooksTraveler = /** @class */ (function () {
     QuickBooksTraveler.prototype.convertTransactionFrom = function (txn) {
     };
     QuickBooksTraveler.prototype.convertInvoiceTo = function (invoice) {
-        return invoice;
+        return {};
     };
-    QuickBooksTraveler.prototype.convertInvoiceFrom = function (invoice) {
-        return invoice;
+    QuickBooksTraveler.prototype.convertInvoiceFrom = function (quickbooksInvoice) {
+        return {};
     };
     return QuickBooksTraveler;
 }());

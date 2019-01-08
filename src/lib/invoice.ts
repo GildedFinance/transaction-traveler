@@ -1,10 +1,10 @@
-export interface IInvoice {
+export type IInvoice = {
   ref?: string;
   invoice_number: number;
   user_id: string;
   client_id: string; // assigned from firebase
   title: string;
-  items: InvoiceItem[];
+  items: IInvoiceItem[];
   terms: string;
   total_amount: number;
   discount: number;
@@ -18,9 +18,9 @@ export interface IInvoice {
   created_at: any;
   updated_at: any;
   deleted_at?: any;
-  date_due: any; // timestamp
-  date_send: any; // timestamp
-  date_paid: any; // timestamp
+  date_due?: any; // timestamp
+  date_send?: any; // timestamp
+  date_paid?: any; // timestamp
 
   // transactions info
   transaction_id?: any;
@@ -41,10 +41,11 @@ export interface IInvoice {
   payer?: string;
 }
 
-export interface InvoiceItem {
+export interface IInvoiceItem {
   id?: number;
   description: string;
   quantity: number;
   amount: number;
   unit_price: number;
+  currency: string | 'USD';
 }

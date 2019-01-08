@@ -12,16 +12,10 @@ var Network;
 var Traveler = /** @class */ (function () {
     function Traveler() {
     }
-    Traveler.prototype.convertTransactionTo = function (txn) {
-    };
-    Traveler.prototype.convertTransactionFrom = function (txn) {
-    };
-    Traveler.prototype.convertInvoiceTo = function (invoice) {
-        return invoice;
-    };
-    Traveler.prototype.convertInvoiceFrom = function (invoice) {
-        return invoice;
-    };
+    Traveler.prototype.convertTransactionTo = function (txn) { };
+    Traveler.prototype.convertTransactionFrom = function (txn) { };
+    Traveler.prototype.convertInvoiceTo = function (invoice) { };
+    Traveler.prototype.convertInvoiceFrom = function (invoiceFrom) { };
     return Traveler;
 }());
 exports.Traveler = Traveler;

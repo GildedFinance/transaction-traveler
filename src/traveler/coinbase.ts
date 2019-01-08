@@ -20,12 +20,12 @@ export class CoinbaseTraveler implements Traveler {
 
   }
 
-  convertInvoiceTo<IInvoice>(invoice: IInvoice) {
-    return invoice;
+  convertInvoiceTo(invoice: IInvoice): ICoinbaseInvoice {
+    return <ICoinbaseInvoice>{};
   }
 
-  convertInvoiceFrom<ICoinbaseInvoice>(invoice: ICoinbaseInvoice) {
-    return invoice;
+  convertInvoiceFrom(coinbaseInvoice: any): IInvoice {
+    return <IInvoice>{};
   }
 
 }

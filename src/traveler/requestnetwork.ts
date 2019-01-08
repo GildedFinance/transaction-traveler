@@ -1,4 +1,4 @@
-import { IInvoice } from '../lib/invoice';
+import { IInvoice, IInvoiceItem } from '../lib/invoice';
 import { Network, Traveler } from '../lib/shared';
 import { ITransaction } from '../lib/transaction';
 
@@ -45,14 +45,16 @@ export interface IRequestNetworkInvoiceItem {
   currency: string;
 }
 
+export interface IRequestNetworkInvoiceMeta {
+  format: string | 'rnf_invoice',
+  version: string | '0.0.2'
+}
+
 export interface IRequestNetworkInvoice {
   // tslint:disable-next-line:max-line-length
   // https://github.com/RequestNetwork/requestNetwork/blob/master/packages/requestNetworkDataFormat/src/format/rnf_invoice/rnf_invoice-0.0.2.json
   // define the fields in this invoice type
-  meta: {
-    format: 'rnf_invoice',
-    version: '0.0.2'
-  };
+  meta: IRequestNetworkInvoiceMeta,
   invoiceNumber: string;
   creationDate: string;
   invoiceItems: Array<any>;
@@ -80,12 +82,62 @@ export class RequestNetworkTraveler implements Traveler {
     return txn;
   }
 
-  convertInvoiceTo<IInvoice>(invoice: IInvoice) {
-    return invoice;
+  convertInvoiceTo(invoice: IInvoice): IRequestNetworkInvoice {
+    // very simple data
+    const invoiceItems = invoice.items.map((item: IInvoiceItem) => {
+      return <IRequestNetworkInvoiceItem>{
+        name: item.description,
+        quantity: item.quantity,
+        unitPrice: item.unit_price.toString(),
+        taxPercent: 0,
+        currency: item.currency
+      };
+    });
+
+    return <IRequestNetworkInvoice>{
+      meta: <IRequestNetworkInvoiceMeta>{ format: 'rnf_invoice', version: '0.0.2' },
+      invoiceNumber: invoice.invoice_number.toString(),
+      creationDate: invoice.created_at,
+      invoiceItems: invoiceItems,
+      purchaseOrderId: invoice.ref,
+      note: invoice.notes
+    };
   }
 
-  convertInvoiceFrom<IRequestNetworkInvoice>(invoice: IRequestNetworkInvoice) {
-    return invoice;
+  convertInvoiceFrom(requestInvoice: any): IInvoice {
+    const paymentTerms = requestInvoice.paymentTerms;
+    const dueDate = (undefined !== paymentTerms) ? paymentTerms.dueDate : null;
+    const invoiceItems = requestInvoice.invoiceItems.map((item: IRequestNetworkInvoiceItem) => {
+      return <IInvoiceItem>{
+        description: item.name,
+        quantity: item.quantity,
+        unit_price: Number(item.unitPrice),
+        currency: item.currency
+      };
+    });
+    
+    return <IInvoice>{      
+      invoice_number: Number(requestInvoice.invoiceNumber),
+      user_id: '',
+      client_id: '',
+      title: '',
+      items: invoiceItems,
+      terms: '',
+      total_amount: 0,
+      discount: 0,
+      currency: '',
+      fiat_currency: invoiceItems[0].currency,
+      receive_currency: '',
+      notes: requestInvoice.note || '',
+      status: '',
+      created_at: requestInvoice.creationDate,
+      updated_at: requestInvoice.creationDate,
+      date_due: dueDate,
+      invoice_method: 'requestnetwork',
+      requestId: requestInvoice.miscellaneous.id || '',
+      creator: (requestInvoice.sellerInfo) ? requestInvoice.sellerInfo.email : '',
+      payer: (requestInvoice.buyerInfo) ? requestInvoice.buyerInfo.email : '',
+    };
   }
 
 }

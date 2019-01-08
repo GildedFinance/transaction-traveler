@@ -20,12 +20,12 @@ export class QuickBooksTraveler implements Traveler {
 
   }
 
-  convertInvoiceTo<IInvoice>(invoice: IInvoice) {
-    return invoice;
+  convertInvoiceTo(invoice: IInvoice): IQuickBooksInvoice {
+    return <IQuickBooksInvoice>{};
   }
 
-  convertInvoiceFrom<IQuickBooksInvoice>(invoice: IQuickBooksInvoice) {
-    return invoice;
+  convertInvoiceFrom(quickbooksInvoice: any): IInvoice {
+    return <IInvoice>{};
   }
 
 }

@@ -29,20 +29,12 @@ export type InvoiceInterfaces = Travelers.ICoinbaseInvoice | Travelers.IRequestN
 
 export abstract class Traveler {
 
-  convertTransactionTo(txn: ITransaction) {
+  convertTransactionTo(txn: ITransaction) {}
 
-  }
+  convertTransactionFrom(txn: TransactionInterfaces) {}
 
-  convertTransactionFrom(txn: TransactionInterfaces) {
+  convertInvoiceTo(invoice: IInvoice) {}
 
-  }
-
-  convertInvoiceTo<IInvoice>(invoice: IInvoice) {
-    return invoice;
-  }
-
-  convertInvoiceFrom<T>(invoice: T) {
-    return invoice;
-  }
+  convertInvoiceFrom(invoiceFrom: any) {}
 
 }
