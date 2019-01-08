@@ -84,15 +84,18 @@ export class RequestNetworkTraveler implements Traveler {
 
   convertInvoiceTo(invoice: IInvoice): IRequestNetworkInvoice {
     // very simple data
-    const invoiceItems = invoice.items.map((item: IInvoiceItem) => {
-      return <IRequestNetworkInvoiceItem>{
-        name: item.description,
-        quantity: item.quantity,
-        unitPrice: item.unit_price.toString(),
-        taxPercent: 0,
-        currency: item.currency
-      };
-    });
+    let invoiceItems:Array<IRequestNetworkInvoiceItem> = [];
+    if (invoice.items) {
+      invoice.items.map((item: IInvoiceItem) => {
+        return <IRequestNetworkInvoiceItem>{
+          name: item.description,
+          quantity: item.quantity,
+          unitPrice: item.unit_price.toString(),
+          taxPercent: 0,
+          currency: item.currency
+        };
+      });
+    }
 
     return <IRequestNetworkInvoice>{
       meta: <IRequestNetworkInvoiceMeta>{ format: 'rnf_invoice', version: '0.0.2' },

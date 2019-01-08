@@ -1,7 +1,7 @@
 import { Network } from './lib/shared';
 import * as Travelers from './traveler';
 
-export  class TransactionTraveler {
+export class TransactionTraveler {
 
   convertTransaction(txn: any, from: Network, to?: Network) {
     let base = txn;
