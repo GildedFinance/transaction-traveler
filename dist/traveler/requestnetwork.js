@@ -14,15 +14,18 @@ var RequestNetworkTraveler = /** @class */ (function () {
     };
     RequestNetworkTraveler.prototype.convertInvoiceTo = function (invoice) {
         // very simple data
-        var invoiceItems = invoice.items.map(function (item) {
-            return {
-                name: item.description,
-                quantity: item.quantity,
-                unitPrice: item.unit_price.toString(),
-                taxPercent: 0,
-                currency: item.currency
-            };
-        });
+        var invoiceItems = [];
+        if (undefined !== invoice.items) {
+            invoice.items.map(function (item) {
+                return {
+                    name: item.description,
+                    quantity: item.quantity,
+                    unitPrice: (item.unit_price) ? item.unit_price.toString() : '0',
+                    taxPercent: 0,
+                    currency: item.currency
+                };
+            });
+        }
         return {
             meta: { format: 'rnf_invoice', version: '0.0.2' },
             invoiceNumber: invoice.invoice_number.toString(),
