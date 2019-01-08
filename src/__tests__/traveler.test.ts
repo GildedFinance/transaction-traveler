@@ -22,10 +22,10 @@ test('My Transaction Traveler', () => {
         "invoice_number": 531,
         "items": [
           {
-            "amount": 0,
-            "description": "item",
-            "quantity": 1,
-            "unit_price": null
+            "amount": 10,
+            "description": "CryptoCoin",
+            "quantity": 2,
+            "unit_price": 100
           }
         ],
         "notes": "test",
@@ -64,8 +64,19 @@ test('My Transaction Traveler', () => {
       };
 
     const result = tt.convertInvoice(fakeInvoice, Network.Base, Network.RequestNetwork);
-    console.log(result);
+    
+    const expectedResult = { meta: { format: 'rnf_invoice', version: '0.0.2' },
+    invoiceNumber: '531',
+    creationDate: { seconds: 1544636434, nanoseconds: 230000000 },
+    invoiceItems:
+     [ { name: 'CryptoCoin',
+         quantity: 2,
+         unitPrice: '100',
+         taxPercent: 0,
+         currency: 'EUR' } ],
+    purchaseOrderId: 'lacEHAFDbUXiTvlAIeJM',
+    note: 'test' };
 
-    // first test
-    expect(1).toBe(1);
+    // match req format data
+    expect(result).toMatchObject(expectedResult);
 });

@@ -16,13 +16,13 @@ var RequestNetworkTraveler = /** @class */ (function () {
         // very simple data
         var invoiceItems = [];
         if (undefined !== invoice.items) {
-            invoice.items.map(function (item) {
+            invoiceItems = invoice.items.map(function (item, index) {
                 return {
                     name: item.description,
                     quantity: item.quantity,
                     unitPrice: (item.unit_price) ? item.unit_price.toString() : '0',
                     taxPercent: 0,
-                    currency: item.currency
+                    currency: item.currency || invoice.fiat_currency
                 };
             });
         }

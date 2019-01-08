@@ -8,7 +8,7 @@ export type IInvoice = {
   terms: string;
   total_amount: number;
   discount: number;
-  currency: string;
+  currency: string | 'USD';
   fiat_currency: string;
   receive_currency: string;
   notes: string;
