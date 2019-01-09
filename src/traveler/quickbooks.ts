@@ -1,6 +1,6 @@
-import { IInvoice } from '../lib/invoice';
+import { IInvoice } from '../lib/interfaces/invoice';
 import { Network, Traveler } from '../lib/shared';
-import { ITransaction } from '../lib/transaction';
+import { ITransaction } from '../lib/interfaces/transaction';
 
 export interface IQuickBooksTransaction {
   // define the fields in this transaction type

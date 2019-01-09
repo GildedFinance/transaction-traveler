@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = require("./");
-var shared_1 = require("./lib/shared");
 /*********************
  *
  * EXAMPLE USAGE
@@ -40,5 +39,5 @@ var exampleTxn = {
         title: 'Sent bitcoin',
     },
 };
-var toQuickBooks = tt.convertTransaction(exampleTxn, shared_1.Network.Coinbase, shared_1.Network.QuickBooks);
+var toQuickBooks = tt.convertTransaction(exampleTxn, _1.Network.Coinbase, _1.Network.QuickBooks);
 console.log(toQuickBooks);

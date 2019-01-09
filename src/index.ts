@@ -1,4 +1,7 @@
-import { Network } from './lib/shared';
+export * from './lib';
+export * from './traveler';
+
+import { Network } from './lib';
 import * as Travelers from './traveler';
 
 export class TransactionTraveler {

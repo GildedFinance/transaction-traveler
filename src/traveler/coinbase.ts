@@ -1,6 +1,6 @@
 import { Traveler, Network } from "../lib/shared";
-import { ITransaction } from "../lib/transaction";
-import { IInvoice } from "../lib/invoice";
+import { ITransaction } from "../lib/interfaces/transaction";
+import { IInvoice } from "../lib/interfaces/invoice";
 
 export interface ICoinbaseTransaction {
   // define the fields in this transaction type

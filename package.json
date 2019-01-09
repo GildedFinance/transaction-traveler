@@ -1,6 +1,6 @@
 {
   "name": "transaction-traveler",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,7 +13,7 @@
     "tslint-config-airbnb": "^5.9.2"
   },
   "files": [
-    "src/lib/**/*"
+    "dist/**/*"
   ],
   "author": {
     "name": "Gilded Development",

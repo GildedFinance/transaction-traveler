@@ -1,6 +1,5 @@
-import { IInvoice } from './invoice';
-import { ITransaction } from './transaction';
-
+import { IInvoice } from './interfaces/invoice';
+import { ITransaction } from './interfaces/transaction';
 import * as Travelers from '../traveler';
 
 export enum Network {

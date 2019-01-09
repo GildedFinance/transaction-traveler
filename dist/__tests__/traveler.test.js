@@ -1,10 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var index_1 = require("../index");
-var shared_1 = require("../lib/shared");
+var __1 = require("../");
 test('My Transaction Traveler', function () {
-    var tt = new index_1.TransactionTraveler();
-    tt.getTraveler(shared_1.Network.RequestNetwork);
+    var tt = new __1.TransactionTraveler();
+    tt.getTraveler(__1.Network.RequestNetwork);
     var fakeInvoice = {
         "client_id": "57vbiFS7xb1pv9EeI4nR",
         "created_at": {
@@ -62,7 +61,7 @@ test('My Transaction Traveler', function () {
             "operator": {}
         }
     };
-    var result = tt.convertInvoice(fakeInvoice, shared_1.Network.Base, shared_1.Network.RequestNetwork);
+    var result = tt.convertInvoice(fakeInvoice, __1.Network.Base, __1.Network.RequestNetwork);
     var expectedResult = { meta: { format: 'rnf_invoice', version: '0.0.2' },
         invoiceNumber: '531',
         creationDate: { seconds: 1544636434, nanoseconds: 230000000 },

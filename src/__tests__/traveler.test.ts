@@ -1,5 +1,4 @@
-import { TransactionTraveler } from '../index';
-import { Network } from '../lib/shared';
+import { TransactionTraveler, Network } from '../';
 
 test('My Transaction Traveler', () => {
     const tt = new TransactionTraveler();

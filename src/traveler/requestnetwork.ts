@@ -1,6 +1,6 @@
-import { IInvoice, IInvoiceItem } from '../lib/invoice';
+import { IInvoice, IInvoiceItem } from '../lib/interfaces/invoice';
 import { Network, Traveler } from '../lib/shared';
-import { ITransaction } from '../lib/transaction';
+import { ITransaction } from '../lib/interfaces/transaction';
 
 declare var RequestNetworkDataFormat: any;
 
