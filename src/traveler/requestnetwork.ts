@@ -1,5 +1,5 @@
 import { IInvoice, IInvoiceItem } from '../lib/interfaces/invoice';
-import { Network, Traveler } from '../lib/shared';
+import { Traveler } from '../lib/shared';
 import { ITransaction } from '../lib/interfaces/transaction';
 
 declare var RequestNetworkDataFormat: any;
@@ -101,7 +101,7 @@ export class RequestNetworkTraveler implements Traveler {
     return <IRequestNetworkInvoice>{
       meta: <IRequestNetworkInvoiceMeta>{ format: 'rnf_invoice', version: '0.0.2' },
       invoiceNumber: invoice.invoice_number.toString(),
-      creationDate: invoice.created_at,
+      creationDate: new Date(invoice.created_at.seconds * 1000).toISOString(),
       invoiceItems: invoiceItems,
       purchaseOrderId: invoice.ref,
       note: invoice.notes

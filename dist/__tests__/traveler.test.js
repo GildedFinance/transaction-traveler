@@ -62,16 +62,18 @@ test('My Transaction Traveler', function () {
         }
     };
     var result = tt.convertInvoice(fakeInvoice, __1.Network.Base, __1.Network.RequestNetwork);
-    var expectedResult = { meta: { format: 'rnf_invoice', version: '0.0.2' },
+    var expectedResult = {
+        meta: { format: 'rnf_invoice', version: '0.0.2' },
         invoiceNumber: '531',
-        creationDate: { seconds: 1544636434, nanoseconds: 230000000 },
+        creationDate: new Date(fakeInvoice.created_at.seconds * 1000).toISOString(),
         invoiceItems: [{ name: 'CryptoCoin',
                 quantity: 2,
                 unitPrice: '100',
                 taxPercent: 0,
                 currency: 'EUR' }],
         purchaseOrderId: 'lacEHAFDbUXiTvlAIeJM',
-        note: 'test' };
+        note: 'test'
+    };
     // match req format data
     expect(result).toMatchObject(expectedResult);
 });

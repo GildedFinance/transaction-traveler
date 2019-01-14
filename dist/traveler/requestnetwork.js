@@ -29,7 +29,7 @@ var RequestNetworkTraveler = /** @class */ (function () {
         return {
             meta: { format: 'rnf_invoice', version: '0.0.2' },
             invoiceNumber: invoice.invoice_number.toString(),
-            creationDate: invoice.created_at,
+            creationDate: new Date(invoice.created_at.seconds * 1000).toISOString(),
             invoiceItems: invoiceItems,
             purchaseOrderId: invoice.ref,
             note: invoice.notes
