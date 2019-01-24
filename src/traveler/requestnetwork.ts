@@ -98,10 +98,14 @@ export class RequestNetworkTraveler implements Traveler {
       });
     }
 
+    const createdAt = (undefined === invoice.created_at.seconds) 
+      ? new Date().toISOString()
+      : new Date(invoice.created_at.seconds * 1000).toISOString();
+
     return <IRequestNetworkInvoice>{
       meta: <IRequestNetworkInvoiceMeta>{ format: 'rnf_invoice', version: '0.0.2' },
       invoiceNumber: invoice.invoice_number.toString(),
-      creationDate: new Date(invoice.created_at.seconds * 1000).toISOString(),
+      creationDate: createdAt,
       invoiceItems: invoiceItems,
       purchaseOrderId: invoice.ref,
       note: invoice.notes
