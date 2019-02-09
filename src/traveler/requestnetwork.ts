@@ -108,9 +108,7 @@ export class RequestNetworkTraveler implements Traveler {
       invoiceItems,
       purchaseOrderId: invoice.ref,
       note: invoice.notes,
-      miscellaneous: {
-        builderId: 'Gilded'
-      }
+      miscellaneous: invoice.miscellaneous || { builderId: 'Gilded' }
     } as IRequestNetworkInvoice;
   }
 

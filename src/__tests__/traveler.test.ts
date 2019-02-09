@@ -59,8 +59,12 @@ test('My Transaction Traveler', () => {
             _isScalar: false
           },
           operator: {}
+        },
+        miscellaneous: {
+          builderId: 'Gilded'
         }
     };
+
     const result = tt.convertInvoice(fakeInvoice, Network.Base, Network.RequestNetwork);
 
     const expectedResult = {
@@ -74,9 +78,13 @@ test('My Transaction Traveler', () => {
           taxPercent: 0,
           currency: 'EUR' } ],
       purchaseOrderId: 'lacEHAFDbUXiTvlAIeJM',
-      note: 'test'
+      note: 'test',
+      miscellaneous: {
+        builderId: 'Gilded'
+      }
     };
 
-    // match req format data
+    // match request network format data
     expect(result).toMatchObject(expectedResult);
+
 });

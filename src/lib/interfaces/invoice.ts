@@ -39,6 +39,8 @@ export interface IInvoice {
   requestId?: string;
   creator?: string;
   payer?: string;
+
+  miscellaneous?: any;
 }
 
 export interface IInvoiceItem {
