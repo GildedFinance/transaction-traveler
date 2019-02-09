@@ -107,7 +107,10 @@ export class RequestNetworkTraveler implements Traveler {
       creationDate: createdAt,
       invoiceItems,
       purchaseOrderId: invoice.ref,
-      note: invoice.notes
+      note: invoice.notes,
+      miscellaneous: {
+        builderId: 'Gilded'
+      }
     } as IRequestNetworkInvoice;
   }
 
