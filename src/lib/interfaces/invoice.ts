@@ -1,4 +1,4 @@
-export type IInvoice = {
+export interface IInvoice {
   ref?: string;
   invoice_number: number;
   user_id: string;
