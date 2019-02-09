@@ -1,6 +1,6 @@
+import * as Travelers from '../traveler';
 import { IInvoice } from './interfaces/invoice';
 import { ITransaction } from './interfaces/transaction';
-import * as Travelers from '../traveler';
 
 export enum Network {
   Base,

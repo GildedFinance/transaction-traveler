@@ -1,6 +1,6 @@
-import { Traveler, Network } from "../lib/shared";
-import { ITransaction } from "../lib/interfaces/transaction";
-import { IInvoice } from "../lib/interfaces/invoice";
+import { IInvoice } from '../lib/interfaces/invoice';
+import { ITransaction } from '../lib/interfaces/transaction';
+import { Traveler } from '../lib/shared';
 
 export interface ICoinbaseTransaction {
   // define the fields in this transaction type
@@ -21,11 +21,11 @@ export class CoinbaseTraveler implements Traveler {
   }
 
   convertInvoiceTo(invoice: IInvoice): ICoinbaseInvoice {
-    return <ICoinbaseInvoice>{};
+    return {} as ICoinbaseInvoice;
   }
 
   convertInvoiceFrom(coinbaseInvoice: any): IInvoice {
-    return <IInvoice>{};
+    return {} as IInvoice;
   }
 
 }

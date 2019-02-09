@@ -1,6 +1,6 @@
 import { IInvoice } from '../lib/interfaces/invoice';
-import { Network, Traveler } from '../lib/shared';
 import { ITransaction } from '../lib/interfaces/transaction';
+import { Traveler } from '../lib/shared';
 
 export interface IQuickBooksTransaction {
   // define the fields in this transaction type
@@ -21,11 +21,11 @@ export class QuickBooksTraveler implements Traveler {
   }
 
   convertInvoiceTo(invoice: IInvoice): IQuickBooksInvoice {
-    return <IQuickBooksInvoice>{};
+    return {} as IQuickBooksInvoice;
   }
 
   convertInvoiceFrom(quickbooksInvoice: any): IInvoice {
-    return <IInvoice>{};
+    return {} as IInvoice;
   }
 
 }
