@@ -41,7 +41,7 @@ export interface IRequestNetworkInvoiceItem {
   // required
   name: string;
   quantity: number;
-  unitPrice: number;
+  unitPrice: string;
   taxPercent: number;
   currency: string;
   // optional
@@ -100,7 +100,7 @@ export class RequestNetworkTraveler implements Traveler {
         return {
           name: item.description,
           quantity: item.quantity,
-          unitPrice: item.unit_price || 0,
+          unitPrice: String(item.unit_price) || '0',
           taxPercent: 0,
           currency: item.currency || invoice.fiat_currency
         } as IRequestNetworkInvoiceItem;
@@ -129,13 +129,13 @@ export class RequestNetworkTraveler implements Traveler {
     let invoiceTotalAmount = 0;
     let invoiceTotalDiscount = 0;
     const invoiceItems = requestInvoice.invoiceItems.map((item: IRequestNetworkInvoiceItem) => {
-      invoiceTotalAmount += item.unitPrice * item.quantity;
+      invoiceTotalAmount += Number(item.unitPrice) * item.quantity;
       invoiceTotalDiscount += item.discount || 0;
 
       return {
         description: item.name,
         quantity: item.quantity,
-        unit_price: item.unitPrice,
+        unit_price: Number(item.unitPrice),
         currency: item.currency,
         amount: Number(item.amount) || 0,
         discount: item.discount || 0
