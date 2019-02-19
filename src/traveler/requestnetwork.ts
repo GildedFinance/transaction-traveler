@@ -38,11 +38,18 @@ export interface IRequestNetworkInvoicePaymentTerms {
 }
 
 export interface IRequestNetworkInvoiceItem {
+  // required
   name: string;
   quantity: number;
-  unitPrice: string;
+  unitPrice: number;
   taxPercent: number;
   currency: string;
+  // optional
+  amount?: string;
+  reference?: string;
+  discount?: number;
+  deliveryDate?: string;
+  deliveryPeriod?: string;
 }
 
 export interface IRequestNetworkInvoiceMeta {
@@ -54,10 +61,13 @@ export interface IRequestNetworkInvoice {
   // tslint:disable-next-line:max-line-length
   // https://github.com/RequestNetwork/requestNetwork/blob/master/packages/requestNetworkDataFormat/src/format/rnf_invoice/rnf_invoice-0.0.2.json
   // define the fields in this invoice type
+
+  // required
   meta: IRequestNetworkInvoiceMeta;
   invoiceNumber: string;
   creationDate: string;
-  invoiceItems: any[];
+  invoiceItems: IRequestNetworkInvoiceItem[];
+
   // optional
   purchaseOrderId?: string;
   note?: string;
@@ -90,7 +100,7 @@ export class RequestNetworkTraveler implements Traveler {
         return {
           name: item.description,
           quantity: item.quantity,
-          unitPrice: (item.unit_price) ? item.unit_price.toString() : '0',
+          unitPrice: item.unit_price || 0,
           taxPercent: 0,
           currency: item.currency || invoice.fiat_currency
         } as IRequestNetworkInvoiceItem;
@@ -115,29 +125,37 @@ export class RequestNetworkTraveler implements Traveler {
   convertInvoiceFrom(requestInvoice: any): IInvoice {
     const paymentTerms = requestInvoice.paymentTerms;
     const dueDate = (undefined !== paymentTerms) ? paymentTerms.dueDate : null;
+
+    let invoiceTotalAmount = 0;
+    let invoiceTotalDiscount = 0;
     const invoiceItems = requestInvoice.invoiceItems.map((item: IRequestNetworkInvoiceItem) => {
+      invoiceTotalAmount += item.unitPrice * item.quantity;
+      invoiceTotalDiscount += item.discount || 0;
+
       return {
         description: item.name,
         quantity: item.quantity,
-        unit_price: Number(item.unitPrice),
-        currency: item.currency
+        unit_price: item.unitPrice,
+        currency: item.currency,
+        amount: Number(item.amount) || 0,
+        discount: item.discount || 0
       } as IInvoiceItem;
     });
 
+    // store currency for invoice data
+    const invoiceCurrency = (invoiceItems.length > 0) ? invoiceItems[0].currency : '';
+
     return {
       invoice_number: Number(requestInvoice.invoiceNumber),
-      user_id: '',
-      client_id: '',
-      title: '',
-      items: invoiceItems,
-      terms: '',
-      total_amount: 0,
-      discount: 0,
-      currency: '',
-      fiat_currency: invoiceItems[0].currency,
-      receive_currency: '',
+      user_id: requestInvoice.userId || '',
+      client_id: requestInvoice.clientId || '',
+      items: invoiceItems || [],
+      terms: requestInvoice.terms || '',
+      total_amount: invoiceTotalAmount,
+      discount: invoiceTotalDiscount,
+      currency: invoiceCurrency,
+      fiat_currency: invoiceCurrency,
       notes: requestInvoice.note || '',
-      status: '',
       created_at: requestInvoice.creationDate,
       updated_at: requestInvoice.creationDate,
       date_due: dueDate,
