@@ -161,8 +161,8 @@ export class RequestNetworkTraveler implements Traveler {
       date_due: dueDate,
       invoice_method: 'requestnetwork',
       requestId: requestInvoice.miscellaneous.id || '',
-      creator: (requestInvoice.sellerInfo) ? requestInvoice.sellerInfo.email : '',
-      payer: (requestInvoice.buyerInfo) ? requestInvoice.buyerInfo.email : '',
+      creator: (requestInvoice.sellerInfo) ? requestInvoice.sellerInfo : {},
+      payer: (requestInvoice.buyerInfo) ? requestInvoice.buyerInfo : {},
     } as IInvoice;
   }
 
