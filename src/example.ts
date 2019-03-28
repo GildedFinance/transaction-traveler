@@ -1,5 +1,4 @@
-import { TransactionTraveler } from './';
-import { Network } from './lib/shared';
+import { TransactionTraveler, Network } from './';
 
 /*********************
  *

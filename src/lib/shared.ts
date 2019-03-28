@@ -1,7 +1,6 @@
-import { IInvoice } from './invoice';
-import { ITransaction } from './transaction';
-
 import * as Travelers from '../traveler';
+import { IInvoice } from './interfaces/invoice';
+import { ITransaction } from './interfaces/transaction';
 
 export enum Network {
   Base,
@@ -29,20 +28,12 @@ export type InvoiceInterfaces = Travelers.ICoinbaseInvoice | Travelers.IRequestN
 
 export abstract class Traveler {
 
-  convertTransactionTo(txn: ITransaction) {
+  convertTransactionTo(txn: ITransaction) {}
 
-  }
+  convertTransactionFrom(txn: TransactionInterfaces) {}
 
-  convertTransactionFrom(txn: TransactionInterfaces) {
+  convertInvoiceTo(invoice: IInvoice) {}
 
-  }
-
-  convertInvoiceTo(invoice: IInvoice) {
-
-  }
-
-  convertInvoiceFrom(invoice: InvoiceInterfaces) {
-
-  }
+  convertInvoiceFrom(invoiceFrom: any) {}
 
 }

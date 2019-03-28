@@ -1,5 +1,3 @@
-import { Network } from './shared';
-
 export interface ITransaction {
   id: string;
   type: TransactionType;

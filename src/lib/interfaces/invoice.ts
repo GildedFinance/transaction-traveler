@@ -3,24 +3,24 @@ export interface IInvoice {
   invoice_number: number;
   user_id: string;
   client_id: string; // assigned from firebase
-  title: string;
-  items: InvoiceItem[];
+  title?: string;
+  items: IInvoiceItem[];
   terms: string;
   total_amount: number;
   discount: number;
   currency: string;
-  fiat_currency: string;
-  receive_currency: string;
+  fiat_currency?: string;
+  receive_currency?: string;
   notes: string;
-  status: string;
+  status?: string;
 
   // date
   created_at: any;
   updated_at: any;
   deleted_at?: any;
-  date_due: any; // timestamp
-  date_send: any; // timestamp
-  date_paid: any; // timestamp
+  date_due?: any; // timestamp
+  date_send?: any; // timestamp
+  date_paid?: any; // timestamp
 
   // transactions info
   transaction_id?: any;
@@ -39,12 +39,16 @@ export interface IInvoice {
   requestId?: string;
   creator?: string;
   payer?: string;
+
+  miscellaneous?: any;
 }
 
-export interface InvoiceItem {
+export interface IInvoiceItem {
   id?: number;
   description: string;
   quantity: number;
   amount: number;
   unit_price: number;
+  currency: string;
+  discount: number;
 }
