@@ -1,6 +1,6 @@
 {
   "name": "transaction-traveler",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,6 +9,8 @@
     "build": "tsc"
   },
   "dependencies": {
+    "bn.js": "^4.11.8",
+    "bn.js-typings": "^1.0.1",
     "requestnetwork-data-format": "^0.1.4",
     "tslint-config-airbnb": "^5.9.2"
   },
