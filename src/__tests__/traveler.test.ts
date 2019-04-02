@@ -114,7 +114,7 @@ test('Import from Request Network', () => {
           quantity: '1',
           unitPrice: '10000000000000000',
           discount: '500000000000000',
-          taxPercent: '0',
+          taxPercent: '0.1',
           amount: '0.0095',
           currency: 'ETH'
         }
@@ -129,8 +129,6 @@ test('Import from Request Network', () => {
   };
   const result = tt.convertInvoice(requestInvoice, Network.RequestNetwork, Network.Base);
   const expectedResult = { invoice_number: NaN,
-    user_id: '',
-    client_id: '',
     items:
      [ { description: 'Velit consequuntur o',
          quantity: 1,
@@ -138,9 +136,9 @@ test('Import from Request Network', () => {
          currency: 'ETH',
          amount: 0.0095,
          discount: 0.0005,
-         taxPercent: 0 } ],
+         taxPercent: 0.1 } ],
     terms: '',
-    total_amount: 0.0095,
+    total_amount: 0.01045,
     discount: 0.0005,
     currency: 'ETH',
     fiat_currency: 'ETH',

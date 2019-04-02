@@ -61,7 +61,7 @@ export interface IRequestNetworkInvoiceMeta {
 
 export interface IRequestNetworkInvoice {
   // tslint:disable-next-line:max-line-length
-  // https://github.com/RequestNetwork/requestNetwork/blob/master/packages/requestNetworkDataFormat/src/format/rnf_invoice/rnf_invoice-0.0.2.json
+  // https://github.com/RequestNetwork/requestNetwork/blob/development/packages/data-format/src/format/rnf_invoice/rnf_invoice-0.0.2.json
   // define the fields in this invoice type
 
   // required
@@ -142,11 +142,12 @@ export class RequestNetworkTraveler implements Traveler {
 
     let invoiceTotalAmount = 0;
     let invoiceTotalDiscount = 0;
+
     const invoiceItems = requestInvoice.invoiceItems.map((item: IRequestNetworkInvoiceItem) => {
       const itemAmount = this.BNToAmount(item.unitPrice).toString();
       const itemDiscount = this.BNToAmount(item.discount).toString();
       invoiceTotalDiscount += Number(itemDiscount) || 0;
-      invoiceTotalAmount += (Number(itemAmount) * item.quantity) - Number(itemDiscount);
+      invoiceTotalAmount += Number(item.amount) + Number(item.amount) * item.taxPercent;
 
       return {
         description: item.name,
@@ -163,9 +164,8 @@ export class RequestNetworkTraveler implements Traveler {
     const invoiceCurrency = (invoiceItems.length > 0) ? invoiceItems[0].currency : '';
 
     return {
+      title: requestInvoice.miscellaneous.invoiceTitle || undefined,
       invoice_number: Number(requestInvoice.invoiceNumber),
-      user_id: requestInvoice.userId || '',
-      client_id: requestInvoice.clientId || '',
       items: invoiceItems || [],
       terms: requestInvoice.terms || '',
       total_amount: invoiceTotalAmount,
