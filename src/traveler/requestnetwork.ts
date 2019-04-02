@@ -142,12 +142,16 @@ export class RequestNetworkTraveler implements Traveler {
 
     let invoiceTotalAmount = 0;
     let invoiceTotalDiscount = 0;
+    let invoiceTotalVat = 0;
 
     const invoiceItems = requestInvoice.invoiceItems.map((item: IRequestNetworkInvoiceItem) => {
       const itemAmount = this.BNToAmount(item.unitPrice).toString();
       const itemDiscount = this.BNToAmount(item.discount).toString();
-      invoiceTotalDiscount += Number(itemDiscount) || 0;
-      invoiceTotalAmount += Number(item.amount) + Number(item.amount) * item.taxPercent;
+      const itemTax = (Number(item.taxPercent) % 1 === 0) ? item.taxPercent / 100 : item.taxPercent;
+
+      invoiceTotalDiscount += Number(itemDiscount) * item.quantity || 0;
+      invoiceTotalAmount += Number(item.amount) + Number(item.amount) * Number(itemTax);
+      invoiceTotalVat += Number(item.amount) * Number(itemTax);
 
       return {
         description: item.name,
@@ -164,7 +168,7 @@ export class RequestNetworkTraveler implements Traveler {
     const invoiceCurrency = (invoiceItems.length > 0) ? invoiceItems[0].currency : '';
 
     return {
-      title: requestInvoice.miscellaneous.invoiceTitle || undefined,
+      title: requestInvoice.invoiceTitle || requestInvoice.title || undefined,
       invoice_number: Number(requestInvoice.invoiceNumber),
       items: invoiceItems || [],
       terms: requestInvoice.terms || '',
@@ -180,6 +184,7 @@ export class RequestNetworkTraveler implements Traveler {
       requestId: requestInvoice.miscellaneous.id || '',
       creator: (requestInvoice.sellerInfo) ? requestInvoice.sellerInfo : {},
       payer: (requestInvoice.buyerInfo) ? requestInvoice.buyerInfo : {},
+      vatTotal: invoiceTotalVat.toString()
     } as IInvoice;
   }
 

@@ -114,7 +114,7 @@ test('Import from Request Network', () => {
           quantity: '1',
           unitPrice: '10000000000000000',
           discount: '500000000000000',
-          taxPercent: '0.1',
+          taxPercent: '10',
           amount: '0.0095',
           currency: 'ETH'
         }
@@ -136,7 +136,7 @@ test('Import from Request Network', () => {
          currency: 'ETH',
          amount: 0.0095,
          discount: 0.0005,
-         taxPercent: 0.1 } ],
+         taxPercent: 10 } ],
     terms: '',
     total_amount: 0.01045,
     discount: 0.0005,

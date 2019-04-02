@@ -39,6 +39,9 @@ export interface IInvoice {
   requestId?: string;
   creator?: string;
   payer?: string;
+  payee?: string;
+
+  vatTotal?: string;
 
   miscellaneous?: any;
 }
