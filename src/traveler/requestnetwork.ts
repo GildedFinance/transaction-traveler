@@ -1,3 +1,5 @@
+import { BN } from 'bn.js';
+import { BigNumber } from '../lib/interfaces/bignumber';
 import { IInvoice, IInvoiceItem } from '../lib/interfaces/invoice';
 import { ITransaction } from '../lib/interfaces/transaction';
 import { Traveler } from '../lib/shared';
@@ -96,18 +98,25 @@ export class RequestNetworkTraveler implements Traveler {
     let invoiceItems: IRequestNetworkInvoiceItem[] = [];
 
     if (undefined !== invoice.items) {
-      invoiceItems = invoice.items.map((item: IInvoiceItem, index) => {
-        const itemAmount = (typeof item.amount === 'number') ? String(item.amount) : item.amount;
-        const itemDiscount = (typeof item.discount === 'number') ? String(item.discount) : item.discount;
+      invoiceItems = invoice.items.map((item: IInvoiceItem) => {
+        let itemDiscount: any;
+
+        if (typeof item.discount !== 'number') {
+          itemDiscount = item.amount * (invoice.discount / 100);
+        } else {
+          itemDiscount = item.discount;
+        }
+
+        const itemAmount = (typeof item.amount === 'number') ? item.amount - itemDiscount : 0;
 
         return {
-          amount: itemAmount,
-          discount: itemDiscount,
+          amount: String(itemAmount),
+          discount: this.AmountToBN(String(itemDiscount)).toString(),
           name: item.description,
           quantity: item.quantity,
-          unitPrice: String(item.unit_price) || '0',
+          unitPrice: this.AmountToBN(String(item.unit_price)).toString() || '0',
           taxPercent: 0,
-          currency: item.currency || invoice.fiat_currency
+          currency: invoice.receive_currency || invoice.fiat_currency
         } as IRequestNetworkInvoiceItem;
       });
     }
@@ -134,16 +143,19 @@ export class RequestNetworkTraveler implements Traveler {
     let invoiceTotalAmount = 0;
     let invoiceTotalDiscount = 0;
     const invoiceItems = requestInvoice.invoiceItems.map((item: IRequestNetworkInvoiceItem) => {
-      invoiceTotalAmount += Number(item.unitPrice) * item.quantity;
-      invoiceTotalDiscount += Number(item.discount) || 0;
+      const itemAmount = this.BNToAmount(item.unitPrice).toString();
+      const itemDiscount = this.BNToAmount(item.discount).toString();
+      invoiceTotalDiscount += Number(itemDiscount) || 0;
+      invoiceTotalAmount += (Number(itemAmount) * item.quantity) - Number(itemDiscount);
 
       return {
         description: item.name,
-        quantity: item.quantity,
-        unit_price: Number(item.unitPrice),
+        quantity: Number(item.quantity),
         currency: item.currency,
         amount: Number(item.amount) || 0,
-        discount: item.discount || 0
+        unit_price: Number(itemAmount) || 0,
+        discount: Number(itemDiscount) || 0,
+        taxPercent: Number(item.taxPercent) || 0
       } as IInvoiceItem;
     });
 
@@ -169,6 +181,15 @@ export class RequestNetworkTraveler implements Traveler {
       creator: (requestInvoice.sellerInfo) ? requestInvoice.sellerInfo : {},
       payer: (requestInvoice.buyerInfo) ? requestInvoice.buyerInfo : {},
     } as IInvoice;
+  }
+
+  private AmountToBN(amount: any, decimals: number = 18) {
+    return new BigNumber().amountToBN(amount, decimals).toString();
+  }
+
+  private BNToAmount(value: any, decimals: number = 18) {
+    const bigNumber: BN = new BigNumber().BNX(value);
+    return new BigNumber().BNToAmount(bigNumber, decimals);
   }
 
 }

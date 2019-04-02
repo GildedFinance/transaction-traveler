@@ -50,5 +50,5 @@ export interface IInvoiceItem {
   amount: number;
   unit_price: number;
   currency: string;
-  discount: number;
+  discount?: number;
 }

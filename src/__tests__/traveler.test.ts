@@ -15,16 +15,16 @@ test('Convert Invoice to Request Network Format', () => {
           seconds: 1544636434,
           nanoseconds: 230000000
         },
-        discount: 0,
+        discount: 10,
         fiat_currency: 'EUR',
         invoice_method: 'address',
         invoice_number: 531,
         items: [
           {
-            amount: 0.01,
+            amount: 0.1,
             description: 'CryptoCoin',
             quantity: 2,
-            unit_price: 0.005
+            unit_price: 0.05
           }
         ],
         notes: 'test',
@@ -32,8 +32,8 @@ test('Convert Invoice to Request Network Format', () => {
         receive_currency: 'ETH',
         ref: 'lacEHAFDbUXiTvlAIeJM',
         status: 'unpaid',
-        title: 'Adres',
-        total_amount: 0,
+        title: 'Address',
+        total_amount: 0.09,
         updated_at: {
           seconds: 1544636434,
           nanoseconds: 230000000
@@ -74,11 +74,11 @@ test('Convert Invoice to Request Network Format', () => {
       invoiceItems:
       [
         {
-          amount: '0.01',
+          amount: '0.09',
           name: 'CryptoCoin',
           quantity: 2,
-          discount: '0',
-          unitPrice: '5000000000000000',
+          discount: '10000000000000002',
+          unitPrice: '50000000000000000',
           taxPercent: 0,
           currency: 'ETH'
         }
