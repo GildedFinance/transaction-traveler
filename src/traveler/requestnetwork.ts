@@ -185,7 +185,7 @@ export class RequestNetworkTraveler implements Traveler {
 
     return {
       title: requestInvoice.invoiceTitle || requestInvoice.title || undefined,
-      invoice_number: Number(requestInvoice.invoiceNumber),
+      invoice_number: requestInvoice.invoiceNumber || undefined,
       items: invoiceItems || [],
       terms: requestInvoice.terms || '',
       total_amount: invoiceTotalAmount,
