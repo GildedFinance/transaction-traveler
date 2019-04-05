@@ -145,13 +145,29 @@ export class RequestNetworkTraveler implements Traveler {
     let invoiceTotalVat = 0;
 
     const invoiceItems = requestInvoice.invoiceItems.map((item: IRequestNetworkInvoiceItem) => {
-      const itemAmount = this.BNToAmount(item.unitPrice).toString();
-      const itemDiscount = this.BNToAmount(item.discount).toString();
-      const itemTax = (Number(item.taxPercent) % 1 === 0) ? item.taxPercent / 100 : item.taxPercent;
+      const itemAmount = this.BNToAmount(item.unitPrice || 0).toString();
+      const itemDiscount = this.BNToAmount(item.discount || 0).toString();
+      let itemTax = 0;
 
-      invoiceTotalDiscount += Number(itemDiscount) * item.quantity || 0;
-      invoiceTotalAmount += Number(item.amount) + Number(item.amount) * Number(itemTax);
-      invoiceTotalVat += Number(item.amount) * Number(itemTax);
+      if (item.taxPercent) {
+        if (Number(item.taxPercent) % 1 === 0) {
+          itemTax = item.taxPercent / 100;
+        }
+      }
+
+      if (item.amount) {
+          invoiceTotalAmount += Number(item.amount) + (Number(item.amount) * Number(itemTax));
+          invoiceTotalVat += Number(item.amount) * Number(itemTax);
+      } else if (item.quantity && item.unitPrice) {
+          const amount = item.quantity * Number(item.unitPrice);
+          invoiceTotalAmount += amount + amount * Number(itemTax);
+          invoiceTotalVat += amount * Number(itemTax);
+          item.amount = amount.toString();
+      }
+
+      if (item.discount) {
+          invoiceTotalDiscount += Number(itemDiscount) * (item.quantity || 0);
+      }
 
       return {
         description: item.name,

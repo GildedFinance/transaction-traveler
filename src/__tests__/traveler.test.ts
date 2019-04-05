@@ -128,6 +128,7 @@ test('Import from Request Network', () => {
       }
   };
   const result = tt.convertInvoice(requestInvoice, Network.RequestNetwork, Network.Base);
+
   const expectedResult = { invoice_number: NaN,
     items:
      [ { description: 'Velit consequuntur o',
